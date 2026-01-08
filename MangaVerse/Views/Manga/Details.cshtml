@@ -44,6 +44,8 @@
                     @if (User.IsInRole("Admin"))
                     {
                         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning px-4">Редактирай</a>
+                        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger px-4">Изтрий</a>
+
                     }
                 </div>
             </div>
