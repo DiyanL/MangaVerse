@@ -4,7 +4,7 @@
     ViewData["Title"] = "MangaVerse - Каталог";
 }
 
-<div class="container mt-4">
+<div class="container mt-4 d-flex flex-column" style="min-height: 80vh;">
     <h2 class="text-uppercase fw-bold mb-4">Popular Now</h2>
 
     <form asp-action="Index" method="get" class="row g-3 mb-5 align-items-end">
@@ -55,22 +55,22 @@
         var nextDisabled = !Model.HasNextPage ? "disabled" : "";
     }
 
-    <div class="d-flex justify-content-center mt-5 mb-5">
+    <div class="d-flex justify-content-center mt-auto py-5">
         <a asp-action="Index"
            asp-route-pageNumber="@(Model.PageIndex - 1)"
            asp-route-sortOrder="@ViewData["CurrentSort"]"
            asp-route-searchString="@ViewData["CurrentSearch"]"
            asp-route-genreFilter="@ViewData["CurrentGenre"]"
-           class="btn btn-outline-dark me-2 @prevDisabled">
+           class="btn btn-dark me-2 @prevDisabled shadow">
             &larr; Предишна
         </a>
-        <span class="btn btn-light disabled">Страница @Model.PageIndex от @Model.TotalPages</span>
+        <span class="btn btn-light disabled text-dark border-0 fw-bold" style="opacity: 0.8;">Страница @Model.PageIndex от @Model.TotalPages</span>
         <a asp-action="Index"
            asp-route-pageNumber="@(Model.PageIndex + 1)"
            asp-route-sortOrder="@ViewData["CurrentSort"]"
            asp-route-searchString="@ViewData["CurrentSearch"]"
            asp-route-genreFilter="@ViewData["CurrentGenre"]"
-           class="btn btn-outline-dark ms-2 @nextDisabled">
+           class="btn btn-dark ms-2 @nextDisabled shadow">
             Следваща &rarr;
         </a>
     </div>

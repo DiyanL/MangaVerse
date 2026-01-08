@@ -1,25 +1,30 @@
 ﻿html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    /* margin-bottom removed to fix footer spacing */
 }
+
 :root {
     --manga-red: #e50914;
     --manga-dark: #111;
@@ -33,7 +38,8 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    position: relative; /* Ensure body establishes a stacking context if needed, though usually not strictly required for fixed child */
+    position: relative;
+    /* Ensure body establishes a stacking context if needed, though usually not strictly required for fixed child */
 }
 
 body::before {
@@ -47,9 +53,11 @@ body::before {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.15; /* Reduced opacity as requested */
+    opacity: 0.15;
+    /* Reduced opacity as requested */
     z-index: -1;
-    pointer-events: none; /* Ensure it doesn't capture clicks */
+    pointer-events: none;
+    /* Ensure it doesn't capture clicks */
 }
 
 main {
@@ -61,7 +69,7 @@ main {
     background-color: #ffffff;
     border-bottom: 1px solid #eee;
     padding: 0.8rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 .navbar-brand {
@@ -70,6 +78,7 @@ main {
     font-size: 1.6rem;
     color: #000;
 }
+
 .navbar-brand span {
     color: var(--manga-red);
 }
@@ -85,7 +94,7 @@ main {
 }
 
 .nav-link:hover {
-        color: var(--manga-red);
+    color: var(--manga-red);
 }
 
 /* Тъмен Footer */
@@ -97,11 +106,11 @@ footer {
 }
 
 footer h5 {
-        color: #fff;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        font-weight: 700;
-        margin-bottom: 20px;
+    color: #fff;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 20px;
 }
 
 footer a {
@@ -138,6 +147,7 @@ footer a:hover {
     background-color: var(--manga-red);
     color: #fff;
 }
+
 /* Контейнер, който центрира формата върху бекграунда */
 .login-wrapper {
     display: flex;
@@ -151,10 +161,11 @@ footer a:hover {
     background: rgba(255, 255, 255, 0.96);
     padding: 40px;
     border-radius: 12px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     width: 100%;
     max-width: 450px;
-    border-top: 6px solid #ff0000; /* Червеният акцент на MangaVerse */
+    border-top: 6px solid #ff0000;
+    /* Червеният акцент на MangaVerse */
 }
 
 /* Стил за логото */
@@ -165,13 +176,14 @@ footer a:hover {
 }
 
 .logo-text span {
-        color: #ff0000;
+    color: #ff0000;
 }
 
 .login-btn {
     /* наполовина червен и наполовина черен */
     background: linear-gradient(to right, #000000 50%, #ff0000 50%);
-    border: 2px solid transparent; /* Подготвяме място за бордера при ховър */
+    border: 2px solid transparent;
+    /* Подготвяме място за бордера при ховър */
     color: white;
     font-weight: bold;
     letter-spacing: 2px;
@@ -179,13 +191,15 @@ footer a:hover {
     transition: all 0.3s ease;
     text-transform: uppercase;
 }
+
 .login-btn:hover {
     /* Тъмно червен бордер при посочване */
     border-color: #8B0000;
     /* Запазваме градиента, но добавяме лек ефект на бутона */
     background: linear-gradient(to right, #1a1a1a 50%, #e60000 50%);
     transform: translateY(-2px);
-    color: white; /* Гарантираме, че текстът остава бял */
+    color: white;
+    /* Гарантираме, че текстът остава бял */
 }
 
 /* Линкове */

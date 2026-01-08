@@ -5,35 +5,47 @@
 }
 
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-md-4">
-            <img src="@Model.CoverImageUrl" class="img-fluid shadow rounded" alt="@Model.Title">
-        </div>
-
-        <div class="col-md-8">
-            <h1 class="display-4 fw-bold">@Model.Title</h1>
-            <h4 class="text-muted mb-4">Автор: @Model.Author</h4>
-
-            <div class="mb-4">
-                <span class="badge bg-primary fs-6">@Model.Genre</span>
-                <span class="badge bg-info fs-6">@Model.Status</span>
-                <span class="badge bg-dark fs-6">Година: @Model.ReleaseYear</span>
+    <div class="bg-white rounded shadow p-4 p-md-5 position-relative overflow-hidden">
+        <div class="row">
+            <div class="col-md-4 mb-4 mb-md-0">
+                <img src="@Model.CoverImageUrl" class="img-fluid shadow rounded w-100" alt="@Model.Title" style="object-fit: cover;">
             </div>
 
-            <h5>Описание:</h5>
-            <p class="lead">@Model.Description</p>
+            <div class="col-md-8">
+                <h1 class="display-4 fw-bold mb-3">@Model.Title</h1>
+                <h4 class="text-muted mb-4 border-bottom pb-3">Автор: @Model.Author</h4>
 
-            <ul class="list-group list-group-flush mt-4" style="max-width: 300px;">
-                <li class="list-group-item"><strong>Брой глави:</strong> @Model.ChaptersCount</li>
-                <li class="list-group-item"><strong>ID на заглавието:</strong> #@Model.Id</li>
-            </ul>
+                <div class="mb-4">
+                    <span class="badge bg-danger fs-6 me-1">@Model.Genre</span> <!-- Changed to Danger to match manga-red theme better -->
+                    <span class="badge bg-secondary fs-6 me-1">@Model.Status</span>
+                    <span class="badge bg-dark fs-6">Година: @Model.ReleaseYear</span>
+                </div>
 
-            <div class="mt-5">
-                <a asp-action="Index" class="btn btn-outline-secondary">Върни се в каталога</a>
-                @if (User.IsInRole("Admin"))
-                {
-                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning ms-2">Редактирай</a>
-                }
+                <h5 class="fw-bold mt-4">Описание</h5>
+                <p class="lead text-secondary" style="font-size: 1.1rem;">@Model.Description</p>
+
+                <div class="row mt-4 mb-4">
+                    <div class="col-auto">
+                        <div class="p-3 bg-light rounded text-center border">
+                            <div class="fw-bold h5 mb-0">@Model.ChaptersCount</div>
+                            <div class="small text-muted">Глави</div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="p-3 bg-light rounded text-center border">
+                            <div class="fw-bold h5 mb-0">#@Model.Id</div>
+                            <div class="small text-muted">ID</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5 d-flex gap-2">
+                    <a asp-action="Index" class="btn btn-outline-dark px-4"><i class="bi bi-arrow-left me-2"></i>Каталог</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning px-4">Редактирай</a>
+                    }
+                </div>
             </div>
         </div>
     </div>
