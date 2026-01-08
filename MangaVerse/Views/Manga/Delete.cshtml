@@ -25,7 +25,7 @@
                         Това действие е необратимо и ще премахне записа от базата данни.
                     </div>
 
-                    <form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post" class="mt-4">
+                    <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="mt-4">
                         @* Повечето Scaffolding контролери търсят метод DeleteConfirmed или POST Delete *@
                         <button type="submit" class="btn btn-danger btn-lg px-5">Да, ИЗТРИЙ</button>
                         <a asp-action="Index" class="btn btn-outline-secondary btn-lg px-4">Отказ</a>

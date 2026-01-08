@@ -144,6 +144,16 @@ namespace MangaVerse.Controllers
             return "/images/covers/" + uniqueFileName;
         }
         
+        // GET: Delete
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null) return NotFound();
+            var manga = await _context.Mangas.FindAsync(id);
+            if (manga == null) return NotFound();
+            return View(manga);
+        }
+
         [HttpPost, ActionName("Delete")]//задавам му име в URL Delete, а не DeleteConfirmed за по-лесно
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
