@@ -19,11 +19,12 @@ namespace MangaVerse.Models
 
         [RegularExpression(@".*/.(jpg|jpeg|png)$", ErrorMessage ="Корицата трябва да е във формат JPG или PNG")]
         public string? CoverImageUrl { get; set; }
+        [Required(ErrorMessage ="Броят на главите е задължителен")]
         public int ChaptersCount { get; set; }
         public string? Status { get; set; } //Продължаващо или Завършено
 
         // Използваме Enum за да предотвратим въвеждането на невалидни жанрове
-        [Required]
+        [Required(ErrorMessage ="Жанра на мангата е задължителен")]
         public MangaGenre Genre { get; set; }
     }
 }
