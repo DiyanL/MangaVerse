@@ -17,7 +17,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => {
     options.SignIn.RequireConfirmedAccount = false;
 })
 .AddRoles<IdentityRole>()
-.AddEntityFrameworkStores<ApplicationDbContext>();
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddErrorDescriber<MangaVerse.Validation.BulgarianIdentityErrorDescriber>();
 
 builder.Services.AddControllersWithViews();
 
