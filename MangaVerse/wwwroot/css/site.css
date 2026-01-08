@@ -1,0 +1,184 @@
+﻿html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+:root {
+    --manga-red: #e50914;
+    --manga-dark: #111;
+    --manga-gray: #888;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #fcfcfc;
+    color: #222;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+/* Навигация */
+.navbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #eee;
+    padding: 0.8rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.navbar-brand {
+    font-weight: 800;
+    letter-spacing: -1px;
+    font-size: 1.6rem;
+    color: #000;
+}
+.navbar-brand span {
+    color: var(--manga-red);
+}
+
+.nav-link {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #444;
+    margin: 0 12px;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+        color: var(--manga-red);
+}
+
+/* Тъмен Footer */
+footer {
+    background-color: var(--manga-dark);
+    color: var(--manga-gray);
+    padding: 50px 0 30px 0;
+    margin-top: 60px;
+}
+
+footer h5 {
+        color: #fff;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 20px;
+}
+
+footer a {
+    color: var(--manga-gray);
+    text-decoration: none;
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: 10px;
+    transition: color 0.2s;
+}
+
+footer a:hover {
+    color: #fff;
+}
+
+.footer-bottom {
+    border-top: 1px solid #222;
+    margin-top: 30px;
+    padding-top: 20px;
+    font-size: 0.75rem;
+}
+
+
+.btn-admin {
+    border: 2px solid var(--manga-red);
+    color: var(--manga-red);
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 5px 15px;
+    border-radius: 4px;
+}
+
+.btn-admin:hover {
+    background-color: var(--manga-red);
+    color: #fff;
+}
+/* Контейнер, който центрира формата върху бекграунда */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+}
+
+/* Бялата карта на формата */
+.login-box {
+    background: rgba(255, 255, 255, 0.96);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 450px;
+    border-top: 6px solid #ff0000; /* Червеният акцент на MangaVerse */
+}
+
+/* Стил за логото */
+.logo-text {
+    font-weight: 900;
+    font-size: 2rem;
+    color: #000;
+}
+
+.logo-text span {
+        color: #ff0000;
+}
+
+.login-btn {
+    /* наполовина червен и наполовина черен */
+    background: linear-gradient(to right, #000000 50%, #ff0000 50%);
+    border: 2px solid transparent; /* Подготвяме място за бордера при ховър */
+    color: white;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 12px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+.login-btn:hover {
+    /* Тъмно червен бордер при посочване */
+    border-color: #8B0000;
+    /* Запазваме градиента, но добавяме лек ефект на бутона */
+    background: linear-gradient(to right, #1a1a1a 50%, #e60000 50%);
+    transform: translateY(-2px);
+    color: white; /* Гарантираме, че текстът остава бял */
+}
+
+/* Линкове */
+.auth-link {
+    color: #6c757d;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.auth-link:hover {
+    color: #ff0000;
+    text-decoration: underline;
+}

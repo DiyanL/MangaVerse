@@ -1,0 +1,74 @@
+﻿@model MangaVerse.Models.Manga
+
+@{
+    ViewData["Title"] = "Редактиране на " + Model.Title;
+}
+
+<div class="container mt-4" style="max-width: 600px;">
+    <h2 class="mb-4 text-warning">Редактиране на заглавие</h2>
+
+    <form asp-action="Edit" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <input type="hidden" asp-for="Id" />
+        @* Пазим стария път на снимката, ако потребителят не качи нова *@
+        <input type="hidden" asp-for="CoverImageUrl" />
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label fw-bold">Заглавие</label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Author" class="form-label fw-bold">Автор</label>
+            <input asp-for="Author" class="form-control" />
+            <span asp-validation-for="Author" class="text-danger"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="ReleaseYear" class="form-label fw-bold">Година</label>
+                <input asp-for="ReleaseYear" class="form-control" />
+                <span asp-validation-for="ReleaseYear" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="Genre" class="form-label fw-bold">Жанр</label>
+                <select asp-for="Genre" class="form-select" asp-items="Html.GetEnumSelectList<MangaVerse.Models.MangaGenre>()"></select>
+                <span asp-validation-for="Genre" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Промени корицата (остави празно, ако няма промяна)</label>
+            <div class="d-flex align-items-center gap-3">
+                <img src="@Model.CoverImageUrl" style="width: 80px; height: 110px; object-fit: cover; border-radius: 4px;" alt="Текуща корица">
+                <input type="file" name="imageFile" class="form-control" accept="image/*" />
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label fw-bold">Описание</label>
+            <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="ChaptersCount" class="form-label fw-bold">Брой глави</label>
+                <input asp-for="ChaptersCount" class="form-control" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="Status" class="form-label fw-bold">Статус</label>
+                <select asp-for="Status" class="form-select">
+                    <option value="Продължаващо">Продължаващо</option>
+                    <option value="Завършено">Завършено</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mt-4 border-top pt-3">
+            <button type="submit" class="btn btn-primary px-4">Запази промените</button>
+            <a asp-action="Index" class="btn btn-outline-secondary px-4">Отказ</a>
+        </div>
+    </form>
+</div>

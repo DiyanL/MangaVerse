@@ -1,0 +1,37 @@
+﻿@model MangaVerse.Models.Manga
+
+@{
+    ViewData["Title"] = "Изтриване на " + Model.Title;
+}
+
+<div class="container mt-5">
+    <div class="card border-danger shadow-sm mx-auto" style="max-width: 700px;">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">Потвърждение на изтриването</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="@Model.CoverImageUrl" class="img-fluid rounded shadow-sm" alt="Корица">
+                </div>
+                <div class="col-md-8">
+                    <h3 class="text-danger">Сигурни ли сте, че искате да изтриете това?</h3>
+                    <p class="lead mb-1"><strong>Заглавие:</strong> @Model.Title</p>
+                    <p class="text-muted"><strong>Автор:</strong> @Model.Author</p>
+                    <p class="text-muted"><strong>Жанр:</strong> @Model.Genre</p>
+
+                    <div class="alert alert-warning mt-3">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        Това действие е необратимо и ще премахне записа от базата данни.
+                    </div>
+
+                    <form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post" class="mt-4">
+                        @* Повечето Scaffolding контролери търсят метод DeleteConfirmed или POST Delete *@
+                        <button type="submit" class="btn btn-danger btn-lg px-5">Да, ИЗТРИЙ</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary btn-lg px-4">Отказ</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

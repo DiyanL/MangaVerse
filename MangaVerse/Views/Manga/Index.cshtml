@@ -1,0 +1,77 @@
+﻿@model MangaVerse.Helpers.PaginatedList<MangaVerse.Models.Manga>
+
+@{
+    ViewData["Title"] = "MangaVerse - Каталог";
+}
+
+<div class="container mt-4">
+    <h2 class="text-uppercase fw-bold mb-4">Popular Now</h2>
+
+    <form asp-action="Index" method="get" class="row g-3 mb-5 align-items-end">
+        <div class="col-md-4">
+            <label class="form-label fw-bold">Търсене</label>
+            <input type="text" name="searchString" value="@ViewData["CurrentSearch"]" class="form-control" placeholder="Заглавие или автор..." />
+        </div>
+        <div class="col-md-3">
+            <label class="form-label fw-bold">Жанр</label>
+            <select name="genreFilter" class="form-select" asp-items="Html.GetEnumSelectList<MangaVerse.Models.MangaGenre>()">
+                <option value="">Всички жанрове</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label fw-bold">Сортиране</label>
+            <select name="sortOrder" class="form-select">
+                <option value="">Име (А-Я)</option>
+                <option value="name_desc">Име (Я-А)</option>
+                <option value="year">Година (Възходящо)</option>
+                <option value="year_desc">Година (Низходящо)</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Приложи</button>
+        </div>
+    </form>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm manga-card bg-white overflow-hidden">
+                    <a asp-action="Details" asp-route-id="@item.Id" class="text-decoration-none text-dark">
+                        <img src="@item.CoverImageUrl" class="card-img-top manga-cover" alt="@item.Title" style="height: 280px; object-fit: cover;">
+                        <div class="card-body p-3">
+                            <div class="fw-bold text-truncate" title="@item.Title">@item.Title</div>
+                            <div class="text-muted small">@item.Author</div>
+                            <span class="badge bg-light text-dark border mt-1">@item.Genre</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+
+    <div class="d-flex justify-content-center mt-5 mb-5">
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-searchString="@ViewData["CurrentSearch"]"
+           asp-route-genreFilter="@ViewData["CurrentGenre"]"
+           class="btn btn-outline-dark me-2 @prevDisabled">
+            &larr; Предишна
+        </a>
+        <span class="btn btn-light disabled">Страница @Model.PageIndex от @Model.TotalPages</span>
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-searchString="@ViewData["CurrentSearch"]"
+           asp-route-genreFilter="@ViewData["CurrentGenre"]"
+           class="btn btn-outline-dark ms-2 @nextDisabled">
+            Следваща &rarr;
+        </a>
+    </div>
+</div>
