@@ -17,7 +17,7 @@ namespace MangaVerse.Models
         public int ReleaseYear { get; set; }
         public string? Description { get; set; }
 
-        [RegularExpression(@".*/.(jpg|jpeg|png)$", ErrorMessage ="Корицата трябва да е във формат JPG или PNG")]
+        [RegularExpression(@"(?i).*\.(jpg|jpeg|png)$", ErrorMessage ="Корицата трябва да е във формат JPG или PNG")]
         public string? CoverImageUrl { get; set; }
         [Required(ErrorMessage ="Броят на главите е задължителен")]
         public int ChaptersCount { get; set; }

@@ -102,25 +102,32 @@ namespace MangaVerse.Controllers
 
             if (ModelState.IsValid)
             {
-                var existingManga = await _context.Mangas.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
-
-                if (imageFile != null)
+                try
                 {
-                    if (!string.IsNullOrEmpty(existingManga.CoverImageUrl)) DeleteFile(existingManga.CoverImageUrl);
-                    manga.CoverImageUrl = await SaveImage(imageFile);
-                }
-                else
-                {
-                    manga.CoverImageUrl = existingManga.CoverImageUrl;
-                }
+                    if (imageFile != null)
+                    {
+                        // Вземаме стария път САМО за да изтрием физическия файл
+                        var oldPath = await _context.Mangas
+                            .Where(m => m.Id == id)
+                            .Select(m => m.CoverImageUrl)
+                            .FirstOrDefaultAsync();
 
-                _context.Update(manga);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                        if (!string.IsNullOrEmpty(oldPath)) DeleteFile(oldPath);
+
+                        manga.CoverImageUrl = await SaveImage(imageFile);
+                    }
+
+                    _context.Update(manga);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Възникна грешка при запис: " + ex.Message);
+                }
             }
             return View(manga);
         }
-
         // Details (За всички)
         public async Task<IActionResult> Details(int? id)
         {

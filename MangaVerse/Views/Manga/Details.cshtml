@@ -31,12 +31,15 @@
                             <div class="small text-muted">Глави</div>
                         </div>
                     </div>
-                    <div class="col-auto">
-                        <div class="p-3 bg-light rounded text-center border">
-                            <div class="fw-bold h5 mb-0">#@Model.Id</div>
+                    @if(User.IsInRole("Admin"))
+                    {
+                        <div class="col-auto">
+                            <div class="p-3 bg-light rounded text-center border">
+                                <div class="fw-bold h5 mb-0">#@Model.Id</div>
                             <div class="small text-muted">ID</div>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
 
                 <div class="mt-5 d-flex gap-2">
