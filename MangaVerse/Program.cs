@@ -20,7 +20,19 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => {
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddErrorDescriber<MangaVerse.Validation.BulgarianIdentityErrorDescriber>();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.ModelBindingMessageProvider.SetValueIsInvalidAccessor(
+        (x) => $"Стойността '{x}' е невалидна.");
+    options.ModelBindingMessageProvider.SetValueMustBeANumberAccessor(
+        (x) => $"Полето {x} трябва да бъде число.");
+    options.ModelBindingMessageProvider.SetMissingBindRequiredValueAccessor(
+        (x) => $"Стойността за '{x}' липсва.");
+    options.ModelBindingMessageProvider.SetAttemptedValueIsInvalidAccessor(
+        (x, y) => $"Стойността '{x}' не е валидна за {y}.");
+    options.ModelBindingMessageProvider.SetUnknownValueIsInvalidAccessor(
+        (x) => $"Стойността е невалидна за {x}.");
+});
 
 var app = builder.Build();
 

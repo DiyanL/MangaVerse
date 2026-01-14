@@ -14,7 +14,7 @@ namespace MangaVerse.Models
 
         [Required(ErrorMessage = "Дата на издание е задължителна.")]
         [ReleaseYearRangeAttribute]
-        public int ReleaseYear { get; set; }
+        public int? ReleaseYear { get; set; }
 
         [Required(ErrorMessage = "Описанието е задължителна.")]
         public string? Description { get; set; }
@@ -30,6 +30,6 @@ namespace MangaVerse.Models
 
         // Използваме Enum за да предотвратим въвеждането на невалидни жанрове
         [Required(ErrorMessage ="Жанра на мангата е задължителен")]
-        public MangaGenre Genre { get; set; }
+        public MangaGenre? Genre { get; set; }
     }
 }
