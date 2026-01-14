@@ -1,7 +1,7 @@
 ﻿@model MangaVerse.Models.Manga
 
 @{
-    ViewData["Title"] = "Редактиране на " + Model.Title;
+    ViewData["Title"] = "Редактиране на " + (Model?.Title ?? "заглавие");
 }
 
 <div class="container mt-4 content-panel" style="max-width: 600px;">
@@ -11,7 +11,6 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <input type="hidden" asp-for="Id" />
-        @* Пазим стария път на снимката, ако потребителят не качи нова *@
         <input type="hidden" asp-for="CoverImageUrl" />
 
         <div class="mb-3">
@@ -42,7 +41,10 @@
         <div class="mb-3">
             <label class="form-label fw-bold">Промени корицата (остави празно, ако няма промяна)</label>
             <div class="d-flex align-items-center gap-3">
-                <img src="@Model.CoverImageUrl" style="width: 80px; height: 110px; object-fit: cover; border-radius: 4px;" alt="Текуща корица">
+                @if (!string.IsNullOrEmpty(Model?.CoverImageUrl))
+                {
+                    <img src="@Model.CoverImageUrl" style="width: 80px; height: 110px; object-fit: cover; border-radius: 4px;" alt="Текуща корица">
+                }
                 <input type="file" name="imageFile" class="form-control" accept="image/*" />
             </div>
         </div>
@@ -59,6 +61,7 @@
                 <input asp-for="ChaptersCount" class="form-control" />
                 <span asp-validation-for="ChaptersCount" class="text-danger"></span>
             </div>
+            <div class="col-md-6 mb-3">
                 <label asp-for="Status" class="form-label fw-bold">Статус</label>
                 <select asp-for="Status" class="form-select">
                     <option value="Продължаващо">Продължаващо</option>
@@ -72,9 +75,11 @@
             <button type="submit" class="btn btn-primary px-4">Запази промените</button>
             <a asp-action="Index" class="btn btn-outline-secondary px-4">Отказ</a>
         </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
     </form>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
