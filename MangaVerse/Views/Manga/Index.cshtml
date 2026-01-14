@@ -16,19 +16,29 @@
             <label class="form-label fw-bold">Жанр</label>
             <select name="genreFilter" class="form-select" asp-items="Html.GetEnumSelectList<MangaVerse.Models.MangaGenre>()">
                 <option value="">Всички жанрове</option>
+                @foreach (var genre in Html.GetEnumSelectList<MangaVerse.Models.MangaGenre>())
+                {
+                    <option value="@genre.Value"
+                            selected="@(genre.Value == ViewData["CurrentGenre"]?.ToString() ? "selected" : null)">
+                        @genre.Text
+                    </option>
+                }
             </select>
         </div>
         <div class="col-md-3">
             <label class="form-label fw-bold">Сортиране</label>
             <select name="sortOrder" class="form-select">
-                <option value="">Име (А-Я)</option>
-                <option value="name_desc">Име (Я-А)</option>
-                <option value="year">Година (Възходящо)</option>
-                <option value="year_desc">Година (Низходящо)</option>
+                <option value="" selected="@(string.IsNullOrEmpty(ViewData["CurrentSort"]?.ToString()) ? "selected" : null)">Име (А-Я)</option>
+                <option value="name_desc" selected="@(ViewData["CurrentSort"]?.ToString() == "name_desc" ? "selected" : null)">Име (Я-А)</option>
+                <option value="year" selected="@(ViewData["CurrentSort"]?.ToString() == "year" ? "selected" : null)">Година (Възходящо)</option>
+                <option value="year_desc" selected="@(ViewData["CurrentSort"]?.ToString() == "year_desc" ? "selected" : null)">Година (Низходящо)</option>
             </select>
         </div>
         <div class="col-md-2">
             <button type="submit" class="btn btn-primary w-100 black-red-btn">Приложи</button>
+        </div>
+        <div class="col-md-2">
+            <a asp-action="Index" class="btn btn-primary w-100 black-red-btn">Изчисти филтрите</a>
         </div>
     </form>
 

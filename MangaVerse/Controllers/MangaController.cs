@@ -27,7 +27,7 @@ namespace MangaVerse.Controllers
 
             // Запазване на текущите филтри
             ViewData["CurrentSearch"] = searchString;
-            ViewData["CurrentGenre"] = genreFilter;
+            ViewData["CurrentGenre"] = genreFilter.HasValue ? ((int)genreFilter.Value).ToString() : "";
 
             var mangaQuery = _context.Mangas.AsQueryable();//заявка към базата данни
 

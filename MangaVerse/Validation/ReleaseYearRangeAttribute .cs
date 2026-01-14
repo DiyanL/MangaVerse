@@ -10,14 +10,14 @@ namespace MangaVerse.Validation
                 return ValidationResult.Success; 
 
             if (value is not int year)
-                return new ValidationResult("Invalid year.");
+                return new ValidationResult("Невалидна година");
 
             int currentYear = DateTime.Today.Year;
 
             if (year < 1900 || year > currentYear)
             {
                 return new ValidationResult(
-                    $"Release year must be between 1900 and {currentYear}."
+                    $"Годината на издаване трябва да бъде между 1900 и {currentYear}."
                 );
             }
 

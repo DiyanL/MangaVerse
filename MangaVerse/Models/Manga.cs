@@ -15,13 +15,18 @@ namespace MangaVerse.Models
         [Required(ErrorMessage = "Дата на издание е задължителна.")]
         [ReleaseYearRangeAttribute]
         public int ReleaseYear { get; set; }
+
+        [Required(ErrorMessage = "Описанието е задължителна.")]
         public string? Description { get; set; }
 
         [RegularExpression(@"(?i).*\.(jpg|jpeg|png)$", ErrorMessage ="Корицата трябва да е във формат JPG или PNG")]
         public string? CoverImageUrl { get; set; }
+
         [Required(ErrorMessage ="Броят на главите е задължителен")]
         public int ChaptersCount { get; set; }
-        public string? Status { get; set; } //Продължаващо или Завършено
+
+        [Required(ErrorMessage = "Попълването на статус е задължително.")]
+        public string? Status { get; set; } 
 
         // Използваме Enum за да предотвратим въвеждането на невалидни жанрове
         [Required(ErrorMessage ="Жанра на мангата е задължителен")]
