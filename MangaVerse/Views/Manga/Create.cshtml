@@ -45,12 +45,14 @@
         <div class="mb-3">
             <label asp-for="Description" class="form-label">Описание</label>
             <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
         </div>
 
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label asp-for="ChaptersCount" class="form-label">Брой глави</label>
                 <input asp-for="ChaptersCount" class="form-control" />
+                <span asp-validation-for="ChaptersCount" class="text-danger"></span>
             </div>
             <div class="col-md-6 mb-3">
                 <label asp-for="Status" class="form-label">Статус</label>
@@ -58,6 +60,7 @@
                     <option value="Продължаващо">Продължаващо</option>
                     <option value="Завършено">Завършено</option>
                 </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
             </div>
         </div>
 

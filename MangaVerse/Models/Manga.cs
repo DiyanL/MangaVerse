@@ -23,7 +23,7 @@ namespace MangaVerse.Models
         public string? CoverImageUrl { get; set; }
 
         [Required(ErrorMessage ="Броят на главите е задължителен")]
-        public int ChaptersCount { get; set; }
+        public int? ChaptersCount { get; set; }
 
         [Required(ErrorMessage = "Попълването на статус е задължително.")]
         public string? Status { get; set; } 
