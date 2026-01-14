@@ -34,11 +34,11 @@
                 <option value="year_desc" selected="@(ViewData["CurrentSort"]?.ToString() == "year_desc" ? "selected" : null)">Година (Низходящо)</option>
             </select>
         </div>
-        <div class="col-md-2">
-            <button type="submit" class="btn btn-primary w-100 black-red-btn">Приложи</button>
-        </div>
-        <div class="col-md-2">
-            <a asp-action="Index" class="btn btn-primary w-100 black-red-btn">Изчисти филтрите</a>
+        <div class="col-md-2 d-flex gap-2 align-items-end">
+            <button type="submit" class="btn btn-danger w-100">Приложи</button>
+            <a asp-action="Index" class="btn btn-dark w-100" title="Изчисти">
+                Изчисти 
+            </a>
         </div>
     </form>
 
