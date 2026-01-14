@@ -72,5 +72,9 @@
             <button type="submit" class="btn btn-primary px-4">Запази промените</button>
             <a asp-action="Index" class="btn btn-outline-secondary px-4">Отказ</a>
         </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
     </form>
 </div>
