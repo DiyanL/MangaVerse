@@ -241,3 +241,76 @@ footer a:hover {
     border-left: 5px solid #ff0000; /* Червен акцент в стила на MangaVerse */
     padding-left: 15px;
 }
+
+/* Код за стил на търсачката в началната страницата*/
+/* 1. Стил за контейнера на търсачката */
+.search-wrapper {
+    max-width: 800px;
+    background: rgba(20, 20, 20, 0.8); /* Полупрозрачен тъмен фон */
+    border: 2px solid #ff0000; /* Червен контур */
+    border-radius: 50px; /* Силно заоблени краища */
+    padding: 6px; /* Пространство между рамката и съдържанието */
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.2); /* Нежно червено сияние */
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    backdrop-filter: blur(10px); /* Замъгляване на фона зад търсачката */
+}
+
+/* Ефект при посочване или писане */
+.search-wrapper:focus-within {
+     box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
+     transform: translateY(-2px); /* Леко повдигане */
+     background: rgba(30, 30, 30, 0.95);
+}
+
+.custom-search-group .input-group-text {
+    font-size: 1.2rem;
+    color: #ff0000; /* Променяме иконата в червено */
+}
+
+/* текстово поле */
+.custom-search-group .form-control {
+    font-size: 1.1rem;
+    color: white;
+    letter-spacing: 0.5px;
+}
+
+/* Цвят на подсказващия текст (Placeholder) */
+.custom-search-group .form-control::placeholder {
+    color: white;
+    font-weight: 300;
+}
+
+/* 4. Специфичен стил за бутона "Търси" */
+.btn-manga-red {
+    background: linear-gradient(45deg, #ff0000, #b30000);
+    border: none;
+    border-radius: 40px !important;
+    color: white;
+    font-weight: 600;
+    padding: 0 35px !important;
+    transition: 0.3s all;
+}
+
+.btn-manga-red:hover {
+    filter: brightness(1.2);
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+    transform: scale(1.05);
+}
+
+/* 5. Анимация за заглавието */
+.display-4 {
+    text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
+    animation: fadeInDown 1s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

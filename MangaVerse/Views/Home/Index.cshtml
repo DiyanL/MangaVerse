@@ -1,8 +1,27 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<section class="hero-section text-center d-flex align-items-center py-5">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-4">Твоята следваща глава започва тук</h1>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+        <form asp-controller="Manga" asp-action="Index" method="get" class="search-wrapper mx-auto">
+            <div class="input-group input-group-lg custom-search-group">
+                <span class="input-group-text border-0 bg-transparent text-muted ps-4">
+                    <i class="bi bi-search"></i>
+                </span>
+
+                @* Атрибутът name="searchString" трябва да съвпада с параметъра в Catalog екшъна *@
+                <input type="text"
+                       name="searchString"
+                       class="form-control border-0 bg-transparent text-white shadow-none"
+                       placeholder="Намери заглавие или автор в каталога..."
+                       aria-label="Search">
+
+                <button class="btn btn-manga-red px-4 py-2" type="submit">
+                    Търси
+                </button>
+            </div>
+        </form>
+    </div>
+</section>

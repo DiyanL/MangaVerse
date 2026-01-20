@@ -185,6 +185,18 @@ namespace MangaVerse.Controllers
             string physicalPath = Path.Combine(_hostEnvironment.WebRootPath, relativePath.TrimStart('/'));
             if (System.IO.File.Exists(physicalPath)) System.IO.File.Delete(physicalPath);
         }
+        public IActionResult Catalog(string searchString)
+        {
+            var mangas = _context.Mangas.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                mangas = mangas.Where(m => m.Title.Contains(searchString) || m.Author.Contains(searchString));
+            }
+
+            ViewData["CurrentSearch"] = searchString; // За да се запази текста в кутията, ако имаш търсачка и там
+            return View(mangas.ToList());
+        }
     }
 }
     
