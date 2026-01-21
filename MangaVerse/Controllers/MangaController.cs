@@ -33,7 +33,12 @@ namespace MangaVerse.Controllers
 
             if (!string.IsNullOrEmpty(searchString))
             {
+                if (!mangaQuery.Any())
+                {
+                    ViewBag.Message = "Няма намерени резултати за търсенето.";
+                }
                 mangaQuery = mangaQuery.Where(m => m.Title.Contains(searchString) || m.Author.Contains(searchString));
+
             }
             
             if(genreFilter.HasValue)

@@ -41,8 +41,8 @@
             </a>
         </div>
     </form>
-
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
+@if(Model.Any())
+{   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4">
         @foreach (var item in Model)
         {
             <div class="col">
@@ -58,8 +58,12 @@
                 </div>
             </div>
         }
-    </div>
-
+        </div>
+    }
+    else
+    {
+        <h1 class="display-4 fw-bold mb-3">Няма намерени резултати от търсенето</h1>
+    }
     @{
         var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
         var nextDisabled = !Model.HasNextPage ? "disabled" : "";

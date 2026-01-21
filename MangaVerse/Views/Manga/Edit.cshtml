@@ -1,11 +1,11 @@
 ﻿@model MangaVerse.Models.Manga
 
 @{
-    ViewData["Title"] = "Редактиране на " + (Model?.Title ?? "заглавие");
+    ViewData["Title"] = "Редактиране";
 }
 
 <div class="container mt-4 content-panel" style="max-width: 600px;">
-    <h2 class="mb-4 text-warning">Редактиране на заглавие</h2>
+    <h2 class="mb-4 text-warning">Редактиране на @(Model?.Title ?? "заглавие")</h2>
 
     <form asp-action="Edit" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -72,7 +72,7 @@
         </div>
 
         <div class="mt-4 border-top pt-3">
-            <button type="submit" class="btn btn-primary px-4">Запази промените</button>
+            <button type="submit" class="btn btn-dark px-4">Запази промените</button>
             <a asp-action="Index" class="btn btn-outline-secondary px-4">Отказ</a>
         </div>
     </form>
