@@ -11,7 +11,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Identity само с роля Admin
 builder.Services.AddDefaultIdentity<IdentityUser>(options => {
     options.Password.RequireDigit = false;
-    options.Password.RequiredLength = 4; // Още по-лесна парола
+    options.Password.RequiredLength = 4;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
     options.SignIn.RequireConfirmedAccount = false;

@@ -31,5 +31,8 @@ namespace MangaVerse.Models
         // Използваме Enum за да предотвратим въвеждането на невалидни жанрове
         [Required(ErrorMessage ="Жанра на мангата е задължителен")]
         public MangaGenre? Genre { get; set; }
+
+        // Връзка към Главите
+        public List<Chapter> Chapters { get; set; } = new List<Chapter>();
     }
 }

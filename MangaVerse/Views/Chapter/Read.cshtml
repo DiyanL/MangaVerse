@@ -1,0 +1,40 @@
+@model MangaVerse.Models.Chapter
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="container mt-5 text-center">
+    <div class="mb-4">
+        <h4 class="text-muted">@Model.Manga.Title</h4>
+        <h1 class="fw-bold display-5">@Model.Title</h1>
+    </div>
+
+    <div class="reader-content">
+        @if (ViewBag.ImagePaths != null)
+        {
+            var images = (List<string>)ViewBag.ImagePaths;
+            if (images.Any())
+            {
+                foreach (var imgPath in images)
+                {
+                     <img src="@imgPath" class="img-fluid d-block mx-auto" style="max-width: 100%; margin-bottom: 0;" loading="lazy" />
+                }
+            }
+            else
+            {
+                <div class="alert alert-info py-5 my-5 shadow-sm rounded-3">
+                    <i class="bi bi-images display-1 mb-3 d-block text-primary"></i>
+                    <h3 class="fw-bold">Липсват изображения</h3>
+                    <p class="lead">Все още няма качени страници за тази глава.</p>
+                </div>
+            }
+        }
+    </div>
+
+    <div class="d-flex justify-content-center gap-3 mt-5">
+        <a asp-controller="Manga" asp-action="Details" asp-route-id="@Model.MangaId" class="btn btn-outline-dark px-4">
+            <i class="bi bi-arrow-left me-2"></i>Обратно към мангата
+        </a>
+    </div>
+</div>

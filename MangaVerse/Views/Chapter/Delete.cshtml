@@ -1,0 +1,31 @@
+@model MangaVerse.Models.Chapter
+
+@{
+    ViewData["Title"] = "Изтриване на Глава";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0 rounded-3 mt-4">
+            <div class="card-body p-4 text-center">
+                <div class="mb-3 text-danger">
+                    <i class="bi bi-exclamation-circle display-1"></i>
+                </div>
+                <h4 class="card-title fw-bold mb-3">Сигурни ли сте?</h4>
+                <p class="text-muted mb-4">
+                    Ще изтриете глава <strong>"@Model.Title"</strong>.<br>
+                    Това действие е необратимо.
+                </p>
+
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    
+                    <div class="d-flex justify-content-center gap-2">
+                        <a asp-action="Index" asp-route-mangaId="@Model.MangaId" class="btn btn-light px-4">Отказ</a>
+                        <button type="submit" class="btn btn-danger px-4">Изтрий</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

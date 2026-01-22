@@ -16,7 +16,7 @@
                 <h4 class="text-muted mb-4 border-bottom pb-3">Автор: @Model.Author</h4>
 
                 <div class="mb-4">
-                    <span class="badge bg-danger fs-6 me-1">@Model.Genre</span> <!-- Changed to Danger to match manga-red theme better -->
+                    <span class="badge bg-danger fs-6 me-1">@Model.Genre</span> 
                     <span class="badge bg-secondary fs-6 me-1">@Model.Status</span>
                     <span class="badge bg-dark fs-6">Година: @Model.ReleaseYear</span>
                 </div>
@@ -31,6 +31,30 @@
                             <div class="small text-muted">Глави</div>
                         </div>
                     </div>
+                </div>
+
+                <!-- Меню за четене (За Потребители) -->
+                @if(Model.Chapters != null && Model.Chapters.Any())
+                {
+                    <div class="mb-5 p-4 bg-light rounded border">
+                        <h5 class="fw-bold mb-3"><i class="bi bi-book me-2"></i>Започни да четеш</h5>
+                        <select class="form-select form-select-lg mb-3 shadow-sm" onchange="if(this.value) window.location.href=this.value;">
+                            <option value="">Избери глава...</option>
+                            @foreach(var chapter in Model.Chapters.OrderBy(c => c.Title))
+                            {
+                                <option value="/Chapter/Read/@chapter.Id">@chapter.Title</option>
+                            }
+                        </select>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-secondary mb-5">
+                       <i class="bi bi-info-circle me-2"></i> Все още няма качени глави за тази манга.
+                    </div>
+                }
+
+                <div class="row mt-4 mb-4">
                     @if(User.IsInRole("Admin"))
                     {
                         <div class="col-auto">
@@ -47,8 +71,10 @@
                     @if (User.IsInRole("Admin"))
                     {
                         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning px-4">Редактирай</a>
+                        <a asp-controller="Chapter" asp-action="Index" asp-route-mangaId="@Model.Id" class="btn btn-primary px-4">
+                            <i class="bi bi-list-ol me-2"></i> Глави
+                        </a>
                         <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger px-4">Изтрий</a>
-
                     }
                 </div>
             </div>

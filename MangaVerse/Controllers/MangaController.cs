@@ -137,7 +137,9 @@ namespace MangaVerse.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
-            var manga = await _context.Mangas.FirstOrDefaultAsync(m => m.Id == id);
+            var manga = await _context.Mangas
+                .Include(m => m.Chapters)
+                .FirstOrDefaultAsync(m => m.Id == id);
             return manga == null ? NotFound() : View(manga);
         }
 
