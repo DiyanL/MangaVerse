@@ -5,38 +5,52 @@
     int mangaId = ViewBag.MangaId;
 }
 
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card shadow-sm border-0 rounded-3 mt-4">
-            <div class="card-body p-4">
-                <h4 class="card-title fw-bold mb-4">Добави нова глава</h4>
-                
-                <form asp-action="Create" enctype="multipart/form-data">
-                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-                    <input type="hidden" asp-for="MangaId" value="@mangaId" />
-                    
-                    <div class="mb-3">
-                        <label asp-for="Title" class="form-label fw-bold">Заглавие</label>
-                        <input asp-for="Title" class="form-control" placeholder="Напр. Глава 1" />
-                        <span asp-validation-for="Title" class="text-danger small"></span>
-                    </div>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
 
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Страници (Снимки)</label>
-                        <input type="file" name="chapterImages" multiple class="form-control" accept="image/*" />
-                        <div class="form-text">Можете да изберете множество файлове едновременно. Имената на файловете определят подредбата (напр. 01.jpg, 02.jpg).</div>
-                    </div>
+            <div class="card shadow p-4 border-0 rounded-3">
+                <div class="card-body">
+                    <h2 class="mb-4 fw-bold text-center">Добави нова глава</h2>
+                    <hr class="mb-4" />
 
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                        <a asp-action="Index" asp-route-mangaId="@mangaId" class="btn btn-light me-md-2">Отказ</a>
-                        <button type="submit" class="btn btn-primary px-4">Създай</button>
-                    </div>
-                </form>
+                    <form asp-action="Create" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <input type="hidden" asp-for="MangaId" value="@mangaId" />
+
+                        <div class="mb-3">
+                            <label asp-for="Title" class="form-label fw-bold">Заглавие</label>
+                            <input asp-for="Title" class="form-control form-control-lg" placeholder="Напр. Глава 1" />
+                            <span asp-validation-for="Title" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Страници (Снимки)</label>
+                            <input type="file" name="chapterImages" multiple class="form-control" accept="image/*" />
+                            <div class="form-text mt-2 text-muted">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Можете да изберете множество файлове едновременно. Имената на файловете определят подредбата (напр. 01.jpg, 02.jpg).
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-5">
+                            <a asp-action="Index" asp-route-mangaId="@mangaId" class="btn btn-outline-secondary px-4">
+                                <i class="bi bi-arrow-left me-2"></i>Назад
+                            </a>
+                            <button type="submit" class="btn btn-dark px-5">
+                                <i class="bi bi-check-lg me-2"></i>Създай
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

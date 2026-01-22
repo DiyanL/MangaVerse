@@ -112,13 +112,27 @@ namespace MangaVerse.Controllers
             {
                 return NotFound();
             }
+
+            // Deserialize JSON to get image paths for the view
+            List<string> imagePaths = new List<string>();
+            if (!string.IsNullOrEmpty(chapter.ImagePathsJson))
+            {
+                try 
+                {
+                    var paths = System.Text.Json.JsonSerializer.Deserialize<List<string>>(chapter.ImagePathsJson);
+                    if (paths != null) imagePaths = paths;
+                }
+                catch {}
+            }
+            ViewBag.ImagePaths = imagePaths;
+
             return View(chapter);
         }
 
         // POST: Chapter/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,MangaId,DateAdded,ImagePathsJson")] Chapter chapter)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,MangaId,DateAdded,ImagePathsJson")] Chapter chapter, List<string>? imagesToDelete, List<IFormFile>? newImages)
         {
             if (id != chapter.Id)
             {
@@ -129,6 +143,85 @@ namespace MangaVerse.Controllers
             {
                 try
                 {
+                    // 1. Get existing JSON from DB context (to ensure we work with current state, though binding has it too)
+                    // Actually, we should merge.
+                    
+                    // Deserialize current paths
+                    List<string> currentPaths = new List<string>();
+                    if (!string.IsNullOrEmpty(chapter.ImagePathsJson))
+                    {
+                        try 
+                        {
+                            var paths = System.Text.Json.JsonSerializer.Deserialize<List<string>>(chapter.ImagePathsJson);
+                            if (paths != null) currentPaths = paths;
+                        }
+                        catch {}
+                    }
+
+                    // 2. Handle Deletions
+                    if (imagesToDelete != null && imagesToDelete.Any())
+                    {
+                        foreach (var pathToDelete in imagesToDelete)
+                        {
+                            if (currentPaths.Contains(pathToDelete))
+                            {
+                                currentPaths.Remove(pathToDelete);
+                                
+                                // Delete physical file
+                                string physicalPath = Path.Combine(_hostEnvironment.WebRootPath, pathToDelete.TrimStart('/'));
+                                if (System.IO.File.Exists(physicalPath))
+                                {
+                                    System.IO.File.Delete(physicalPath);
+                                }
+                            }
+                        }
+                    }
+
+                    // 3. Handle New Images
+                    if (newImages != null && newImages.Count > 0)
+                    {
+                         string chapterFolder = Path.Combine(_hostEnvironment.WebRootPath, "files", "chapters", chapter.Id.ToString());
+                        if (!Directory.Exists(chapterFolder))
+                        {
+                            Directory.CreateDirectory(chapterFolder);
+                        }
+
+                        // Determine start index for naming based on highest existing number
+                        int nextIndex = 1;
+                        if (currentPaths.Any())
+                        {
+                           // Extract numbers from filenames: 005.jpg -> 5
+                           var maxIndex = currentPaths
+                               .Select(p => Path.GetFileNameWithoutExtension(p))
+                               .Where(n => int.TryParse(n, out _))
+                               .Select(n => int.Parse(n))
+                               .DefaultIfEmpty(0)
+                               .Max();
+                           nextIndex = maxIndex + 1;
+                        }
+
+                        foreach (var file in newImages.OrderBy(f => f.FileName))
+                        {
+                            if (file.Length > 0)
+                            {
+                                string extension = Path.GetExtension(file.FileName);
+                                string newFileName = $"{nextIndex:D3}{extension}";
+                                string filePath = Path.Combine(chapterFolder, newFileName);
+
+                                using (var stream = new FileStream(filePath, FileMode.Create))
+                                {
+                                    await file.CopyToAsync(stream);
+                                }
+
+                                currentPaths.Add($"/files/chapters/{chapter.Id}/{newFileName}");
+                                nextIndex++;
+                            }
+                        }
+                    }
+
+                    // 4. Update JSON
+                    chapter.ImagePathsJson = System.Text.Json.JsonSerializer.Serialize(currentPaths);
+                    
                     _context.Update(chapter);
                     await _context.SaveChangesAsync();
                 }

@@ -2,31 +2,83 @@
 
 @{
     ViewData["Title"] = "Редактирай Глава";
+    List<string> imagePaths = ViewBag.ImagePaths as List<string> ?? new List<string>();
 }
 
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card shadow-sm border-0 rounded-3 mt-4">
-            <div class="card-body p-4">
-                <h4 class="card-title fw-bold mb-4">Редактирай глава</h4>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow p-4 border-0 rounded-3">
+                <div class="card-body">
+                    <h2 class="mb-4 fw-bold text-center">Редактирай глава</h2>
+                    <hr class="mb-4" />
 
-                <form asp-action="Edit">
-                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-                    <input type="hidden" asp-for="Id" />
-                    <input type="hidden" asp-for="MangaId" />
-                    <input type="hidden" asp-for="DateAdded" />
+                    <form asp-action="Edit" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="MangaId" />
+                        <input type="hidden" asp-for="DateAdded" />
+                        <input type="hidden" asp-for="ImagePathsJson" />
 
-                    <div class="mb-3">
-                        <label asp-for="Title" class="form-label fw-bold">Заглавие</label>
-                        <input asp-for="Title" class="form-control" />
-                        <span asp-validation-for="Title" class="text-danger small"></span>
-                    </div>
+                        <div class="mb-4">
+                            <label asp-for="Title" class="form-label fw-bold">Заглавие</label>
+                            <input asp-for="Title" class="form-control form-control-lg" />
+                            <span asp-validation-for="Title" class="text-danger small"></span>
+                        </div>
 
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                        <a asp-action="Index" asp-route-mangaId="@Model.MangaId" class="btn btn-light me-md-2">Отказ</a>
-                        <button type="submit" class="btn btn-warning px-4">Запази промените</button>
-                    </div>
-                </form>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold mb-3">Текущи страници</label>
+                            @if (imagePaths.Any())
+                            {
+                                <div class="row row-cols-2 row-cols-md-3 g-3">
+                                    @foreach (var imgPath in imagePaths)
+                                    {
+                                        <div class="col">
+                                            <div class="card h-100 border shadow-sm">
+                                                <div class="position-relative" style="height: 150px; overflow: hidden;">
+                                                     <img src="@imgPath" class="w-100 h-100" style="object-fit: cover; object-position: top;" />
+                                                </div>
+                                                <div class="card-body p-2 text-center bg-light">
+                                                    <div class="form-check d-inline-block">
+                                                        <input class="form-check-input" type="checkbox" name="imagesToDelete" value="@imgPath" id="del_@imgPath.GetHashCode()">
+                                                        <label class="form-check-label text-danger small fw-bold" for="del_@imgPath.GetHashCode()">
+                                                            Изтрий
+                                                        </label>
+                                                    </div>
+                                                    <div class="small text-muted text-break mt-1" style="font-size: 0.7rem;">
+                                                        @System.IO.Path.GetFileName(imgPath)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="form-text mt-2"><i class="bi bi-info-circle me-1"></i> Маркирайте снимките, които искате да премахнете.</div>
+                            }
+                            else
+                            {
+                                <div class="alert alert-secondary">Няма качени снимки за тази глава.</div>
+                            }
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Добави нови страници</label>
+                            <input type="file" name="newImages" multiple class="form-control" accept="image/*" />
+                            <div class="form-text mt-2">
+                                <i class="bi bi-plus-circle me-1"></i> Новите снимки ще бъдат добавени след съществуващите.
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-5">
+                            <a asp-action="Index" asp-route-mangaId="@Model.MangaId" class="btn btn-outline-secondary px-4">
+                                <i class="bi bi-arrow-left me-2"></i>Отказ
+                            </a>
+                            <button type="submit" class="btn btn-warning px-5 fw-bold text-dark">
+                                <i class="bi bi-save me-2"></i>Запази
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

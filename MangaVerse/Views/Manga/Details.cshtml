@@ -31,7 +31,18 @@
                             <div class="small text-muted">Глави</div>
                         </div>
                     </div>
+                     @if (User.IsInRole("Admin"))
+                      {
+                            <div class="col-auto">
+                                <div class="p-3 bg-light rounded text-center border">
+                                    <div class="fw-bold h5 mb-0">#@Model.Id</div>
+                                    <div class="small text-muted">ID</div>
+                                </div>
+                            </div>
+                        }
                 </div>
+                
+             
 
                 <!-- Меню за четене (За Потребители) -->
                 @if(Model.Chapters != null && Model.Chapters.Any())
@@ -54,24 +65,14 @@
                     </div>
                 }
 
-                <div class="row mt-4 mb-4">
-                    @if(User.IsInRole("Admin"))
-                    {
-                        <div class="col-auto">
-                            <div class="p-3 bg-light rounded text-center border">
-                                <div class="fw-bold h5 mb-0">#@Model.Id</div>
-                            <div class="small text-muted">ID</div>
-                            </div>
-                        </div>
-                    }
-                </div>
+            
 
                 <div class="mt-5 d-flex gap-2">
                     <a asp-action="Index" class="btn btn-outline-dark px-4"><i class="bi bi-arrow-left me-2"></i>Каталог</a>
                     @if (User.IsInRole("Admin"))
                     {
                         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning px-4">Редактирай</a>
-                        <a asp-controller="Chapter" asp-action="Index" asp-route-mangaId="@Model.Id" class="btn btn-primary px-4">
+                        <a asp-controller="Chapter" asp-action="Index" asp-route-mangaId="@Model.Id" class="btn btn-dark px-4">
                             <i class="bi bi-list-ol me-2"></i> Глави
                         </a>
                         <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger px-4">Изтрий</a>
