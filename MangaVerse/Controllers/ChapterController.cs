@@ -18,7 +18,7 @@ namespace MangaVerse.Controllers
             _hostEnvironment = hostEnvironment;
         }
 
-        // GET: Chapter/Index/5 (Show chapters for specific manga)
+        // GET: Chapter/Index/5 (Показва главите за конкретна манга)
         public async Task<IActionResult> Index(int mangaId)
         {
             var manga = await _context.Mangas
@@ -38,7 +38,7 @@ namespace MangaVerse.Controllers
         // GET: Chapter/Create?mangaId=5
         public IActionResult Create(int mangaId)
         {
-            ViewBag.MangaId = mangaId; // Important for the Hidden Input
+            ViewBag.MangaId = mangaId; // Важно за скрития входен елемент (Hidden Input)
             return View();
         }
 
@@ -51,7 +51,7 @@ namespace MangaVerse.Controllers
             {
                 chapter.DateAdded = DateTime.Now;
                 _context.Add(chapter);
-                await _context.SaveChangesAsync(); // First Save to get ID
+                await _context.SaveChangesAsync(); // Първо записване, за да се получи ID
 
                 if (chapterImages != null && chapterImages.Count > 0)
                 {
@@ -62,34 +62,31 @@ namespace MangaVerse.Controllers
                     }
 
                     List<string> savedImagePaths = new List<string>();
-                    
-                    // Sorting by filename to ensure correct order if user selected multiple files
-                    int index = 1;
-                    foreach (var file in chapterImages.OrderBy(f => f.FileName))
+
+                    for (int i = 0; i < chapterImages.Count; i++)
                     {
+                        var file = chapterImages[i];
                         if (file.Length > 0)
                         {
-                            // Renaming sequentially: 001.jpg, 002.jpg...
                             string extension = Path.GetExtension(file.FileName);
-                            string newFileName = $"{index:D3}{extension}";
-                            string filePath = Path.Combine(chapterFolder, newFileName);
+                            string fileName = $"{(i + 1):D3}{extension}";
+                            string filePath = Path.Combine(chapterFolder, fileName);
 
                             using (var stream = new FileStream(filePath, FileMode.Create))
                             {
                                 await file.CopyToAsync(stream);
                             }
 
-                            savedImagePaths.Add($"/files/chapters/{chapter.Id}/{newFileName}");
-                            index++;
+                            savedImagePaths.Add($"/files/chapters/{chapter.Id}/{fileName}");
                         }
                     }
 
-                    // Serialize to JSON and update the chapter
+                    // Сериализиране към JSON и обновяване на главата
                     if (savedImagePaths.Any())
                     {
                         chapter.ImagePathsJson = System.Text.Json.JsonSerializer.Serialize(savedImagePaths);
                         _context.Update(chapter);
-                        await _context.SaveChangesAsync(); // Second Save for the JSON
+                        await _context.SaveChangesAsync(); // Второ записване за JSON-а
                     }
                 }
 
@@ -113,16 +110,16 @@ namespace MangaVerse.Controllers
                 return NotFound();
             }
 
-            // Deserialize JSON to get image paths for the view
+            // Десериализиране на JSON, за да се вземат пътищата към изображенията за изгледа
             List<string> imagePaths = new List<string>();
             if (!string.IsNullOrEmpty(chapter.ImagePathsJson))
             {
-                try 
+                try
                 {
                     var paths = System.Text.Json.JsonSerializer.Deserialize<List<string>>(chapter.ImagePathsJson);
                     if (paths != null) imagePaths = paths;
                 }
-                catch {}
+                catch { }
             }
             ViewBag.ImagePaths = imagePaths;
 
@@ -143,22 +140,22 @@ namespace MangaVerse.Controllers
             {
                 try
                 {
-                    // 1. Get existing JSON from DB context (to ensure we work with current state, though binding has it too)
-                    // Actually, we should merge.
-                    
-                    // Deserialize current paths
+                    // 1. Вземане на съществуващия JSON от контекста на БД (за да сме сигурни, че работим с текущото състояние)
+                    // Всъщност трябва да ги обединим.
+
+                    // Десериализиране на текущите пътища
                     List<string> currentPaths = new List<string>();
                     if (!string.IsNullOrEmpty(chapter.ImagePathsJson))
                     {
-                        try 
+                        try
                         {
                             var paths = System.Text.Json.JsonSerializer.Deserialize<List<string>>(chapter.ImagePathsJson);
                             if (paths != null) currentPaths = paths;
                         }
-                        catch {}
+                        catch { }
                     }
 
-                    // 2. Handle Deletions
+                    // 2. Обработка на изтриванията
                     if (imagesToDelete != null && imagesToDelete.Any())
                     {
                         foreach (var pathToDelete in imagesToDelete)
@@ -166,8 +163,8 @@ namespace MangaVerse.Controllers
                             if (currentPaths.Contains(pathToDelete))
                             {
                                 currentPaths.Remove(pathToDelete);
-                                
-                                // Delete physical file
+
+                                // Изтриване на физическия файл
                                 string physicalPath = Path.Combine(_hostEnvironment.WebRootPath, pathToDelete.TrimStart('/'));
                                 if (System.IO.File.Exists(physicalPath))
                                 {
@@ -177,27 +174,27 @@ namespace MangaVerse.Controllers
                         }
                     }
 
-                    // 3. Handle New Images
+                    // 3. Обработка на нови изображения
                     if (newImages != null && newImages.Count > 0)
                     {
-                         string chapterFolder = Path.Combine(_hostEnvironment.WebRootPath, "files", "chapters", chapter.Id.ToString());
+                        string chapterFolder = Path.Combine(_hostEnvironment.WebRootPath, "files", "chapters", chapter.Id.ToString());
                         if (!Directory.Exists(chapterFolder))
                         {
                             Directory.CreateDirectory(chapterFolder);
                         }
 
-                        // Determine start index for naming based on highest existing number
+                        // Определяне на начален индекс за именуване въз основа на най-високия съществуващ номер
                         int nextIndex = 1;
                         if (currentPaths.Any())
                         {
-                           // Extract numbers from filenames: 005.jpg -> 5
-                           var maxIndex = currentPaths
-                               .Select(p => Path.GetFileNameWithoutExtension(p))
-                               .Where(n => int.TryParse(n, out _))
-                               .Select(n => int.Parse(n))
-                               .DefaultIfEmpty(0)
-                               .Max();
-                           nextIndex = maxIndex + 1;
+                            // Извличане на номера от имената на файловете: 005.jpg -> 5
+                            var maxIndex = currentPaths
+                                .Select(p => Path.GetFileNameWithoutExtension(p))
+                                .Where(n => int.TryParse(n, out _))
+                                .Select(n => int.Parse(n))
+                                .DefaultIfEmpty(0)
+                                .Max();
+                            nextIndex = maxIndex + 1;
                         }
 
                         foreach (var file in newImages.OrderBy(f => f.FileName))
@@ -219,9 +216,9 @@ namespace MangaVerse.Controllers
                         }
                     }
 
-                    // 4. Update JSON
+                    // 4. Обновяване на JSON
                     chapter.ImagePathsJson = System.Text.Json.JsonSerializer.Serialize(currentPaths);
-                    
+
                     _context.Update(chapter);
                     await _context.SaveChangesAsync();
                 }
@@ -268,7 +265,7 @@ namespace MangaVerse.Controllers
             var chapter = await _context.Chapters.FindAsync(id);
             if (chapter != null)
             {
-                // Delete physical files
+                // Изтриване на физическите файлове
                 string chapterFolder = Path.Combine(_hostEnvironment.WebRootPath, "files", "chapters", chapter.Id.ToString());
                 if (Directory.Exists(chapterFolder))
                 {
@@ -296,18 +293,18 @@ namespace MangaVerse.Controllers
 
             if (chapter == null) return NotFound();
 
-            // Deserialize JSON to get image paths
+            // Десериализиране на JSON, за да се вземат пътищата към изображенията
             List<string> imagePaths = new List<string>();
             if (!string.IsNullOrEmpty(chapter.ImagePathsJson))
             {
-                try 
+                try
                 {
                     var paths = System.Text.Json.JsonSerializer.Deserialize<List<string>>(chapter.ImagePathsJson);
                     if (paths != null) imagePaths = paths;
                 }
                 catch
                 {
-                    // Fallback or log error if JSON is corrupt
+                    // Връщане към стандартно състояние или логване на грешка, ако JSON-ът е повреден
                 }
             }
 
