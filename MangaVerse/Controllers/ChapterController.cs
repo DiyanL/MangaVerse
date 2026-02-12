@@ -129,7 +129,7 @@ namespace MangaVerse.Controllers
         // POST: Chapter/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,MangaId,DateAdded,ImagePathsJson")] Chapter chapter, List<string>? imagesToDelete, List<IFormFile>? newImages)
+        public async Task<IActionResult> Edit(int id, Chapter chapter, List<string>? imagesToDelete, List<IFormFile>? newImages)
         {
             if (id != chapter.Id)
             {

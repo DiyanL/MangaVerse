@@ -74,16 +74,27 @@ namespace MangaVerse.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Manga manga, IFormFile imageFile)
         {
+            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
+            var extension = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
+            if(imageFile == null)
+            {
+                ModelState.AddModelError("CoverImageUrl", "Корица е задължителна.");
+            }
+            if(imageFile != null)
+            {
+                if (!allowedExtensions.Contains(extension))
+                {
+                    ModelState.AddModelError("CoverImageUrl", "Корицата трябва да е във формат JPG или PNG.");
+                }
+            }
             if (ModelState.IsValid)
             {
-                if (imageFile != null)
-                {
-                    manga.CoverImageUrl = await SaveImage(imageFile);
-                }
+                manga.CoverImageUrl = await SaveImage(imageFile);
                 _context.Add(manga);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+          
             return View(manga);
         }
 
