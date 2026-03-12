@@ -35,14 +35,12 @@ namespace MangaVerse.Controllers
             return View(manga.Chapters.OrderBy(c => c.Id).ToList());
         }
 
-        // GET: Chapter/Create?mangaId=5
         public IActionResult Create(int mangaId)
         {
             ViewBag.MangaId = mangaId; // Важно за скрития входен елемент (Hidden Input)
             return View();
         }
 
-        // POST: Chapter/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Chapter chapter, List<IFormFile> chapterImages)
@@ -96,7 +94,6 @@ namespace MangaVerse.Controllers
             return View(chapter);
         }
 
-        // GET: Chapter/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -126,7 +123,6 @@ namespace MangaVerse.Controllers
             return View(chapter);
         }
 
-        // POST: Chapter/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Chapter chapter, List<string>? imagesToDelete, List<IFormFile>? newImages)
@@ -141,8 +137,6 @@ namespace MangaVerse.Controllers
                 try
                 {
                     // 1. Вземане на съществуващия JSON от контекста на БД (за да сме сигурни, че работим с текущото състояние)
-                    // Всъщност трябва да ги обединим.
-
                     // Десериализиране на текущите пътища
                     List<string> currentPaths = new List<string>();
                     if (!string.IsNullOrEmpty(chapter.ImagePathsJson))
@@ -238,7 +232,6 @@ namespace MangaVerse.Controllers
             return View(chapter);
         }
 
-        // GET: Chapter/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -257,7 +250,6 @@ namespace MangaVerse.Controllers
             return View(chapter);
         }
 
-        // POST: Chapter/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

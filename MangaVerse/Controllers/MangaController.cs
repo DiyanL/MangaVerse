@@ -68,7 +68,6 @@ namespace MangaVerse.Controllers
             return View();
         }
 
-        // POST: Create
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
@@ -98,7 +97,6 @@ namespace MangaVerse.Controllers
             return View(manga);
         }
 
-        // GET: Edit
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -108,7 +106,6 @@ namespace MangaVerse.Controllers
             return View(manga);
         }
 
-        // POST: Edit
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
@@ -169,7 +166,6 @@ namespace MangaVerse.Controllers
             return "/images/covers/" + uniqueFileName;
         }
         
-        // GET: Delete
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {

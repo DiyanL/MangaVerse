@@ -13,5 +13,6 @@ namespace MangaVerse.Data
 
         public DbSet<Manga> Mangas { get; set; }
         public DbSet<Chapter> Chapters { get; set; }
+    
     }
 }
