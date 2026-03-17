@@ -1,0 +1,335 @@
+﻿@{
+    ViewData["Title"] = "Условия за ползване";
+    Layout = "_Layout";
+}
+
+<style>
+    .terms-page-wrap {
+        min-height: calc(100vh - 60px);        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 50px 20px 80px;
+    }
+
+    .terms-breadcrumb {
+        width: 100%;
+        max-width: 860px;
+        font-size: 0.78rem;
+        color: #666;
+        margin-bottom: 20px;
+        letter-spacing: 0.03em;
+    }
+
+    .terms-breadcrumb a {
+        color: #666;
+        text-decoration: none;
+    }
+
+    .terms-breadcrumb a:hover {
+        color: #e8192c;
+    }
+
+    .terms-breadcrumb span {
+        color: #111;
+        font-weight: 600;
+    }
+
+    .terms-card {
+        width: 100%;
+        max-width: 860px;
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 6px;
+        box-shadow: 0 4px 32px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+    }
+
+    .terms-card-header {
+        padding: 36px 48px 28px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .terms-card-header h1 {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(1.8rem, 4vw, 2.6rem);
+        letter-spacing: 0.06em;
+        color: #111;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .terms-card-header h1::before {
+        content: '';
+        display: inline-block;
+        width: 5px;
+        height: 2.2rem;
+        background: #e8192c;
+        border-radius: 2px;
+        flex-shrink: 0;
+    }
+
+    .terms-card-date {
+        margin-top: 8px;
+        font-size: 0.78rem;
+        color: #999;
+        letter-spacing: 0.05em;
+        padding-left: 19px;
+    }
+
+    .terms-intro-note {
+        margin: 0 48px;
+        margin-top: 24px;
+        background: #fff8f8;
+        border-left: 4px solid #e8192c;
+        border-radius: 0 4px 4px 0;
+        padding: 14px 18px;
+        font-size: 0.9rem;
+        line-height: 1.75;
+        color: #555;
+    }
+
+    .terms-card-body {
+        padding: 32px 48px 44px;
+    }
+
+    .terms-section {
+        margin-bottom: 34px;
+    }
+
+    .terms-section:last-child {
+        margin-bottom: 0;
+    }
+
+    .terms-section-title {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: clamp(1rem, 2.5vw, 1.25rem);
+        letter-spacing: 0.1em;
+        color: #111;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .terms-section-title .num {
+        color: #e8192c;
+    }
+
+    .terms-section-title::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #e0e0e0;
+        margin-left: 4px;
+    }
+
+    .terms-card-body p {
+        font-size: clamp(0.875rem, 1.8vw, 0.95rem);
+        line-height: 1.85;
+        color: #444;
+        margin-bottom: 10px;
+    }
+
+    .terms-card-body p:last-child {
+        margin-bottom: 0;
+    }
+
+    .terms-card-body ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 8px;
+    }
+
+    .terms-card-body ul li {
+        font-size: clamp(0.86rem, 1.8vw, 0.93rem);
+        line-height: 1.8;
+        color: #444;
+        padding: 3px 0 3px 20px;
+        position: relative;
+    }
+
+    .terms-card-body ul li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 12px;
+        width: 6px;
+        height: 6px;
+        background: #e8192c;
+        border-radius: 50%;
+    }
+
+    .terms-card-body strong {
+        color: #111;
+        font-weight: 700;
+    }
+
+    .terms-divider {
+        height: 1px;
+        background: #e0e0e0;
+        margin: 28px 0;
+    }
+
+    @@media (max-width: 640px) {
+        .terms-card-header {
+            padding: 24px 22px 20px;
+        }
+
+        .terms-intro-note {
+            margin: 0 22px;
+            margin-top: 20px;
+        }
+
+        .terms-card-body {
+            padding: 24px 22px 32px;
+        }
+    }
+</style>
+
+<div class="terms-page-wrap">
+
+    <div class="terms-breadcrumb">
+        <a asp-controller="Home" asp-action="Index">Начало</a> &rsaquo;
+        <span>Условия за ползване</span>
+    </div>
+
+    <div class="terms-card">
+
+        <div class="terms-card-header">
+            <h1>Условия за ползване</h1>
+            <p class="terms-card-date">Последна актуализация: Март 2026</p>
+        </div>
+
+        <div class="terms-intro-note">
+            Моля, прочетете внимателно настоящите Условия за ползване преди да използвате платформата
+            <strong>MangaVerse</strong>. С достъпа до сайта вие потвърждавате, че сте запознати с и
+            приемате изложените по-долу правила.
+        </div>
+
+        <div class="terms-card-body">
+
+            <div class="terms-section">
+                <h2 class="terms-section-title"><span class="num">01</span> Обща информация</h2>
+                <p>
+                    <strong>MangaVerse</strong> е образователна уеб платформа, разработена като ученически
+                    проект, предоставяща безплатен достъп до манга и комикси за лични и некомерсиални цели.
+                    Платформата се управлява от ученик в дванадесети клас и не представлява търговско предприятие.
+                </p>
+                <p>
+                    Ползването на платформата е напълно безплатно. С посещението на сайта потребителят
+                    декларира, че е прочел и приема настоящите Условия за ползване.
+                </p>
+            </div>
+
+            <div class="terms-divider"></div>
+
+            <div class="terms-section">
+                <h2 class="terms-section-title"><span class="num">02</span> Достъп и ползване</h2>
+                <p>MangaVerse предоставя достъп до своето съдържание при спазване на следните правила:</p>
+                <ul>
+                    <li>Платформата е предназначена единствено за лично, некомерсиално ползване.</li>
+                    <li>Забранено е копирането, разпространението или преиздаването на съдържанието без изрично разрешение.</li>
+                    <li>Потребителите нямат право да се опитват да нарушат сигурността или функционирането на сайта.</li>
+                    <li>Забранено е използването на автоматизирани инструменти (ботове, скрейпъри) за извличане на съдържание.</li>
+                    <li>MangaVerse си запазва правото да ограничи или прекрати достъпа при нарушение на тези условия.</li>
+                </ul>
+            </div>
+
+            <div class="terms-divider"></div>
+
+            <div class="terms-section">
+                <h2 class="terms-section-title"><span class="num">03</span> Интелектуална собственост</h2>
+                <p>
+                    Всички манги, комикси и свързани материали, достъпни чрез MangaVerse, са собственост на
+                    техните съответни автори и издатели. MangaVerse не претендира за авторство върху
+                    публикуваното съдържание.
+                </p>
+                <p>
+                    Платформата е разработена единствено с образователна цел. При получено искане от носители
+                    на авторски права, съответното съдържание ще бъде незабавно премахнато.
+                </p>
+                <p>
+                    Дизайнът, кодът и оригиналните елементи на платформата MangaVerse са интелектуална
+                    собственост на нейния създател.
+                </p>
+            </div>
+
+            <div class="terms-divider"></div>
+
+           
+            <div class="terms-section">
+                <h2 class="terms-section-title"><span class="num">04</span> Лични данни и поверителност</h2>
+                <p>
+                    MangaVerse не събира, не съхранява и не обработва лични данни на потребители.
+                    Платформата не изисква регистрация или въвеждане на лична информация.
+                </p>
+                <p>
+                    Сайтът може да използва технически „бисквитки" (cookies) единствено за правилното
+                    функциониране на платформата — например за запомняне на последно четената страница.
+                    Тези данни не се споделят с трети страни.
+                </p>
+                <p>
+                    При евентуални въпроси свързани с поверителността, можете да се свържете с нас на
+                    посочения по-долу електронен адрес.
+                </p>
+            </div>
+
+            <div class="terms-divider"></div>
+
+            <div class="terms-section">
+                <h2 class="terms-section-title"><span class="num">05</span> Отказ от отговорност</h2>
+                <p>MangaVerse предоставя достъп до съдържание „в настоящия му вид" без каквито и да е гаранции. Не носим отговорност за:</p>
+                <ul>
+                    <li>Временна недостъпност или технически грешки в платформата.</li>
+                    <li>Точността, пълнотата или актуалността на публикуваното съдържание.</li>
+                    <li>Вреди, претърпени в резултат на ползването или невъзможността за ползване на платформата.</li>
+                    <li>Съдържание на външни сайтове, към които платформата може да препраща.</li>
+                </ul>
+            </div>
+
+            <div class="terms-divider"></div>
+
+            
+            <div class="terms-section">
+                <h2 class="terms-section-title"><span class="num">06</span> Съдържание и поведение</h2>
+                <p>Потребителите са длъжни да се въздържат от всякакво поведение, което нарушава правата на другите или противоречи на действащото законодателство. Забранено е:</p>
+                <ul>
+                    <li>Разпространението на незаконно, обидно или вредно съдържание.</li>
+                    <li>Действия с цел увреждане на репутацията на платформата или нейния създател.</li>
+                    <li>Опити за измама, заблуда или злоупотреба с услугите на платформата.</li>
+                </ul>
+            </div>
+
+            <div class="terms-divider"></div>
+
+            <div class="terms-section">
+                <h2 class="terms-section-title"><span class="num">07</span> Промени в условията</h2>
+                <p>
+                    MangaVerse си запазва правото да актуализира настоящите Условия за ползване по всяко
+                    време. Промените влизат в сила от момента на публикуването им на тази страница.
+                    Препоръчваме периодично да преглеждате условията за евентуални обновления.
+                </p>
+                <p>
+                    Продължаването на ползването на платформата след публикуване на промени се счита за
+                    приемане на актуализираните условия.
+                </p>
+            </div>
+
+            <div class="terms-divider"></div>
+
+            <div class="terms-section">
+                <h2 class="terms-section-title"><span class="num">08</span> Приложимо право и контакт</h2>
+                <p>
+                    Настоящите Условия за ползване се уреждат от законодателството на Република България.
+                    При въпроси, сигнали за нарушение на авторски права или друга обратна връзка, можете
+                    да се свържете с нас на:
+                </p>
+                <p><strong>Имейл:</strong> info@@mangaverse.com</p>
+                <p>Стремим се да отговаряме на всяко запитване в разумен срок.</p>
+            </div>
+
+        </div>
+    </div>
+</div>

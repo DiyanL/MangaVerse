@@ -22,7 +22,6 @@ html {
 }
 
 body {
-    /* margin-bottom removed to fix footer spacing */
 }
 
 :root {
@@ -39,7 +38,6 @@ body {
     flex-direction: column;
     min-height: 100vh;
     position: relative;
-    /* Ensure body establishes a stacking context if needed, though usually not strictly required for fixed child */
 }
 
 body::before {
@@ -54,10 +52,8 @@ body::before {
     background-position: center;
     background-repeat: no-repeat;
     opacity: 0.15;
-    /* Reduced opacity as requested */
     z-index: -1;
     pointer-events: none;
-    /* Ensure it doesn't capture clicks */
 }
 
 main {
